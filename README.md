@@ -6,6 +6,41 @@ gemeinsamen Unterordner liegen (z. B. `Modellname_stls/`), werden automatisch al
 ein Projekt gruppiert – ebenso eine lose `.3mf`-Datei, die offensichtlich zum
 gleichen Modell wie ein `_stls`-Ordner gehört.
 
+## Screenshots
+
+*(Beispieldaten – zeigt nicht die echte Sammlung eines Nutzers)*
+
+**Galerie-Übersicht** mit Projekt-Gruppierung, Speicher-/Dateistatistik, Favoriten,
+Duplikat-Erkennung und Suche/Sortierung:
+
+![Galerie-Übersicht](screenshots/screenshot-uebersicht.jpg)
+
+**3D-Live-Vorschau** direkt im Browser (Drehen/Zoomen per Maus) inklusive Tags
+und Notizen pro Projekt:
+
+![3D-Vorschau mit Tags und Notizen](screenshots/screenshot-3d-vorschau.jpg)
+
+**Listenansicht** als kompakte Alternative zur Kachel-Galerie:
+
+![Listenansicht](screenshots/screenshot-listenansicht.jpg)
+
+## Funktionen
+
+- Durchsucht mehrere frei wählbare Ordner nach 3D-Druck-Dateien (`.stl`, `.3mf`,
+  `.f3d` u. a. – Dateitypen sind individuell konfigurierbar).
+- Gruppiert zusammengehörige Dateien automatisch zu Projekten.
+- Zeigt Vorschaubilder: eingebettetes Slicer-Bild, vorhandenes Foto/Render oder
+  eine live im Browser gerenderte 3D-Vorschau der `.stl`-Geometrie.
+- Favoriten, Tags und Notizen pro Projekt oder Datei.
+- Duplikat-Erkennung für Dateien, die mehrfach in der Sammlung liegen.
+- Papierkorb mit Wiederherstellen-Option statt sofortigem, endgültigem Löschen.
+- Such-, Sortier- und Filterfunktionen (Favoriten, Duplikate, Dateityp, Tags).
+- Kachel- und Listenansicht, Ordner- oder flache Dateiansicht.
+- Automatische Sicherung von Favoriten, Notizen und Bibliothekseinstellungen.
+- Hell/Dunkel/System-Farbschema.
+- Als eigenständige Windows-`.exe` mit automatischer Update-Prüfung nutzbar
+  (siehe unten).
+
 Vorschaubilder werden so ermittelt:
 
 1. Eingebettetes Vorschaubild aus der `.3mf`-Datei (Bambu Studio / PrusaSlicer).
