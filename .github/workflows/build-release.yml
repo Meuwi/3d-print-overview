@@ -1,0 +1,41 @@
+# Baut die Windows-.exe automatisch bei GitHub selbst (auf einem
+# Windows-Rechner in der Cloud) und veroeffentlicht sie als Release, sobald
+# ein Versions-Tag (z.B. "v1.1.0") hochgeladen wird. So muss niemand selbst
+# einen Windows-PC zum Bauen benutzen - siehe UPDATE_SETUP.md fuer die
+# Schritt-fuer-Schritt-Anleitung, wie ein neues Update veroeffentlicht wird.
+
+name: Windows-.exe bauen und veroeffentlichen
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Code auschecken
+        uses: actions/checkout@v4
+
+      - name: Python einrichten
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Abhaengigkeiten installieren
+        run: python -m pip install -r requirements.txt
+
+      - name: .exe bauen
+        run: python -m PyInstaller --noconfirm app.spec
+
+      - name: Release veroeffentlichen
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/3D-Druck-Sammlung.exe
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
