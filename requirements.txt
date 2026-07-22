@@ -1,0 +1,17 @@
+# Fuer das Bauen der eigenstaendigen .exe (siehe build_exe.bat) noetig.
+# Im normalen Python-Betrieb (python app.py) ist nur Pillow optional
+# hilfreich - pywebview wird dabei einfach nicht gefunden und die App
+# oeffnet automatisch einen Browser-Tab statt eines eigenen Fensters.
+
+# Eigenes Programmfenster statt Browser-Tab (nutzt unter Windows die
+# eingebaute WebView2-Runtime, die auf Windows 10/11 normalerweise schon
+# vorhanden ist).
+pywebview>=5.0
+
+# Verkleinert sehr hochaufgeloeste Bilddateien vor der Anzeige als
+# Kachel-Vorschau. Rein optional, aber fuer die .exe mit eingepackt, damit
+# es ohne separate Installation immer funktioniert.
+pillow>=10.0
+
+# Zum Bauen der .exe selbst (siehe build_exe.bat).
+pyinstaller>=6.0

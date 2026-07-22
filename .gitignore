@@ -1,0 +1,16 @@
+# Persoenliche Nutzerdaten - sollen NICHT auf GitHub landen (das sind deine
+# eigenen Favoriten/Notizen/Einstellungen, nicht Teil des Programmcodes).
+favorites.json
+library_config.json
+notes.json
+tags.json
+trash.json
+.trash/
+backups/
+
+# Build-Ausgaben von PyInstaller (siehe build_exe.bat) - werden bei Bedarf
+# neu erzeugt, muessen nicht mit hochgeladen werden.
+build/
+dist/
+__pycache__/
+*.pyc
