@@ -70,7 +70,7 @@ PORT = 8743
 # Versionsnummer dieser App - wird im Menue angezeigt und mit der neuesten
 # GitHub-Release-Version verglichen (siehe check_for_update()). Bei jeder
 # veroeffentlichten Aktualisierung hier erhoehen.
-APP_VERSION = "1.0.1"
+APP_VERSION = "1.0.2"
 
 # GitHub-Repository, in dem die Updates (als Releases mit angehaengter .exe)
 # veroeffentlicht werden, im Format "benutzername/repo-name". Solange hier
