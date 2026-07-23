@@ -70,7 +70,7 @@ PORT = 8743
 # Versionsnummer dieser App - wird im Menue angezeigt und mit der neuesten
 # GitHub-Release-Version verglichen (siehe check_for_update()). Bei jeder
 # veroeffentlichten Aktualisierung hier erhoehen.
-APP_VERSION = "1.0.2"
+APP_VERSION = "1.0.3"
 
 # GitHub-Repository, in dem die Updates (als Releases mit angehaengter .exe)
 # veroeffentlicht werden, im Format "benutzername/repo-name". Solange hier
@@ -2935,7 +2935,45 @@ def main():
     Handler.tags = TagsStore(TAGS_FILE)
     threading.Thread(target=auto_backup_loop, daemon=True).start()
 
-    server = ThreadingHTTPServer(("127.0.0.1", PORT), Handler)
+    # allow_reuse_address=False ist hier bewusst wichtig: Pythons HTTPServer
+    # setzt es sonst standardmaessig auf True (SO_REUSEADDR). Unter Windows
+    # erlaubt das einer zweiten, neu gestarteten Instanz denselben Port
+    # zusaetzlich zu belegen, OHNE dass das Binden fehlschlaegt - Anfragen
+    # landen dann unvorhersehbar mal bei der alten, mal bei der neuen
+    # Instanz (z.B. zeigt die Oberflaeche dann die alte Versionsnummer,
+    # obwohl gerade die neue .exe gestartet wurde). Mit False bekommen wir
+    # stattdessen einen klaren Fehler, wenn schon eine Instanz laeuft - und
+    # koennen dann kontrolliert reagieren (siehe except unten).
+    class SingleInstanceHTTPServer(ThreadingHTTPServer):
+        allow_reuse_address = False
+
+    try:
+        server = SingleInstanceHTTPServer(("127.0.0.1", PORT), Handler)
+    except OSError:
+        # Es laeuft schon eine Instanz auf diesem Port (z.B. ein zuvor nicht
+        # richtig beendetes Fenster). Statt eine zweite, verwirrende Instanz
+        # zu starten, oeffnen wir einfach ein Fenster/Tab auf die bereits
+        # laufende Instanz - fuehlt sich fuer die Person am Rechner wie ein
+        # normaler Programmstart an.
+        print(f"Es laeuft bereits eine Instanz auf Port {PORT} - oeffne diese, statt eine zweite zu starten.")
+        if WEBVIEW_AVAILABLE:
+            try:
+                webview.create_window(
+                    "3D-Druck Sammlung",
+                    f"http://127.0.0.1:{PORT}",
+                    width=1440,
+                    height=900,
+                    min_size=(960, 640),
+                    js_api=WebviewAPI(),
+                )
+                webview.start()
+                return
+            except Exception:
+                traceback.print_exc()
+        import webbrowser
+        webbrowser.open(f"http://localhost:{PORT}")
+        return
+
     print(f"3D-Druck-Uebersicht laeuft. (Version {APP_VERSION})")
     for s in sources:
         print(f"Quelle '{s['label']}': {s['path']}")
