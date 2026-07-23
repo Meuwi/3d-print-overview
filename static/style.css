@@ -108,13 +108,6 @@ body::before {
   color: var(--red);
   margin-bottom: 10px;
 }
-.eyebrow-dash {
-  width: 22px;
-  height: 2px;
-  background: var(--red);
-  display: inline-block;
-  flex-shrink: 0;
-}
 .header-version-text { color: var(--text-faint); font-weight: 600; }
 /* Klickbarer Hinweis im Kopfbereich - immer sichtbar, kein Menue-Klick
    noetig, um zu sehen, dass eine neue Version bereitsteht. Oeffnet beim
@@ -201,14 +194,14 @@ body::before {
   margin: 0 auto;
   padding: 0 32px 20px;
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   gap: 12px;
 }
-@media (max-width: 900px) {
-  .stats-grid { grid-template-columns: repeat(3, 1fr); }
+@media (max-width: 1300px) {
+  .stats-grid { grid-template-columns: repeat(5, 1fr); }
 }
-@media (max-width: 560px) {
-  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+@media (max-width: 1000px) {
+  .stats-grid { grid-template-columns: repeat(4, 1fr); }
 }
 
 .stat-box {
@@ -437,20 +430,6 @@ body::before {
 }
 .tag-filter-select:focus { outline: none; border-color: var(--orange); }
 
-#refresh {
-  padding: 10px 16px;
-  background: transparent;
-  border: 1px solid var(--border);
-  border-radius: 9px;
-  color: var(--text-dim);
-  cursor: pointer;
-  font-size: 12.5px;
-  font-weight: 600;
-  font-family: inherit;
-  transition: border-color .15s ease, color .15s ease;
-  white-space: nowrap;
-}
-#refresh:hover { color: var(--text); border-color: #3a3a41; }
 
 /* ---------------------------------------------------------------------- */
 /* 3D-/Listen-Umschalter (jetzt Teil der zusammengefassten Werkzeugleiste,
@@ -459,7 +438,14 @@ body::before {
 
 .view-toggle {
   display: flex;
+  align-items: center;
   gap: 6px;
+}
+.view-toggle-sep {
+  width: 1px;
+  height: 22px;
+  background: var(--border);
+  flex-shrink: 0;
 }
 .view-toggle-btn {
   display: inline-flex;

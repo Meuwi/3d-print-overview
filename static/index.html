@@ -55,7 +55,7 @@
   </div>
 
   <header class="hero">
-    <div class="eyebrow"><span class="eyebrow-dash"></span><span id="txt-eyebrow">Lokales Druckarchiv</span> · <span id="txt-stand">Stand</span> <span id="stand-date"></span> · <span id="header-version-text" class="header-version-text"></span><button type="button" id="header-update-pill" class="header-update-pill" style="display:none;"></button></div>
+    <div class="eyebrow"><span id="txt-eyebrow">Lokales Druckarchiv</span> · <span id="txt-stand">Stand</span> <span id="stand-date"></span> · <span id="header-version-text" class="header-version-text"></span><button type="button" id="header-update-pill" class="header-update-pill" style="display:none;"></button></div>
     <h1 class="hero-title"><span id="txt-title-1">3D-Druck</span> <span class="accent" id="txt-title-2">Sammlung</span></h1>
     <div class="source-switch" id="source-switch"></div>
     <div id="root-path" class="root-path"></div>
@@ -82,13 +82,13 @@
       <option value="" id="opt-tag-filter-all">Alle Tags</option>
     </select>
 
-    <button id="refresh">↻ <span id="txt-refresh">Neu einlesen</span></button>
-
     <button id="selection-mode-btn" class="folder-view-btn" type="button">☑ <span id="txt-selection-mode-btn">Auswählen</span></button>
 
     <div class="toolbar-spacer"></div>
 
     <div id="view-toggle" class="view-toggle">
+      <button class="view-toggle-btn" id="refresh" type="button" title="Neu einlesen"><svg viewBox="0 0 24 24" width="17" height="17"><polyline points="23 4 23 10 17 10" stroke="currentColor" stroke-width="1.9" fill="none" stroke-linecap="round" stroke-linejoin="round"/><polyline points="1 20 1 14 7 14" stroke="currentColor" stroke-width="1.9" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15" stroke="currentColor" stroke-width="1.9" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <span class="view-toggle-sep"></span>
       <button class="view-toggle-btn active" data-view="grid" id="txt-view-grid" title="3D-Ansicht"><svg viewBox="0 0 24 24" width="17" height="17"><rect x="3" y="3" width="8" height="8" rx="2" fill="currentColor"/><rect x="13" y="3" width="8" height="8" rx="2" fill="currentColor"/><rect x="3" y="13" width="8" height="8" rx="2" fill="currentColor"/><rect x="13" y="13" width="8" height="8" rx="2" fill="currentColor"/></svg></button>
       <button class="view-toggle-btn" data-view="list" id="txt-view-list" title="Liste"><svg viewBox="0 0 24 24" width="17" height="17"><rect x="3" y="4.5" width="4" height="4" rx="1" fill="currentColor"/><rect x="10" y="5.25" width="11" height="2.5" rx="1.25" fill="currentColor"/><rect x="3" y="10" width="4" height="4" rx="1" fill="currentColor"/><rect x="10" y="10.75" width="11" height="2.5" rx="1.25" fill="currentColor"/><rect x="3" y="15.5" width="4" height="4" rx="1" fill="currentColor"/><rect x="10" y="16.25" width="11" height="2.5" rx="1.25" fill="currentColor"/></svg></button>
     </div>

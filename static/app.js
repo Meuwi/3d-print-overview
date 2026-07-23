@@ -559,7 +559,7 @@ const I18N_STATIC = [
   { id: "opt-sort-size", key: "sort_size" },
   { id: "opt-sort-count", key: "sort_count" },
   { id: "opt-sort-favorite", key: "sort_favorite" },
-  { id: "txt-refresh", key: "refresh" },
+  { id: "refresh", key: "refresh", attr: "title" },
   { id: "txt-pill-favorites", key: "pill_favorites" },
   { id: "txt-pill-duplicates", key: "pill_duplicates" },
   { id: "pill-duplicates", key: "pill_duplicates_title", attr: "title" },
@@ -792,14 +792,13 @@ function renderSourceSwitch(sources, activeId) {
     if (sourceSwitchEl) sourceSwitchEl.innerHTML = "";
     return;
   }
-  const allPill = `<button class="source-pill source-pill-all${activeId === ALL_SOURCE_ID ? " active" : ""}" data-id="${ALL_SOURCE_ID}" title="${escapeAttr(t("source_all_title"))}">${escapeHtml(t("source_all_label"))}</button>`;
   const folderPills = sources
     .map(
       (s) =>
         `<button class="source-pill${s.id === activeId ? " active" : ""}" data-id="${escapeAttr(s.id)}" title="${escapeAttr(s.path)}">📁 ${escapeHtml(s.label)}</button>`
     )
     .join("");
-  sourceSwitchEl.innerHTML = allPill + folderPills;
+  sourceSwitchEl.innerHTML = folderPills;
   sourceSwitchEl.querySelectorAll(".source-pill").forEach((btn) => {
     btn.addEventListener("click", () => {
       if (btn.classList.contains("active")) return;
