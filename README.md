@@ -50,9 +50,30 @@ Vorschaubilder werden so ermittelt:
    Karte sichtbar wird. Sehr große Dateien (> 45 MB) werden dabei übersprungen,
    um den Browser nicht zu überlasten.
 
-Keine Installation nötig – die App braucht nur Python (Standardbibliothek).
+## Download (empfohlen)
 
-## Starten (Windows)
+Für die meisten reicht das fertige Windows-Programm – keine Installation von
+Python nötig:
+
+1. Neueste Version von der **[Releases-Seite](../../releases/latest)**
+   herunterladen (`3D-Druck-Sammlung.exe`).
+2. Datei an einen beliebigen Ort verschieben (z. B. `Eigene Dateien` oder
+   Desktop) und starten.
+
+Die App öffnet sich in einem eigenen Fenster (kein Browser-Tab nötig) und
+prüft beim Start automatisch, ob eine neuere Version verfügbar ist (siehe
+Menü → „Nach Updates suchen"). Ein Update lädt man dann einfach über den
+gleichen Link neu herunter.
+
+> Windows zeigt bei der ersten Ausführung ggf. eine Warnung, weil das
+> Programm nicht kostenpflichtig signiert ist. Über „Weitere Informationen"
+> → „Trotzdem ausführen" lässt sich das bestätigen.
+
+## Für Entwickler: aus dem Quellcode starten
+
+Alternative für alle, die den Code direkt mit Python ausführen wollen (z. B.
+zum Anpassen), statt die fertige `.exe` zu nutzen. Nötig ist nur Python
+(Standardbibliothek, keine weiteren Pakete).
 
 PowerShell öffnen, dann:
 
@@ -72,21 +93,14 @@ Danach im Browser öffnen: **http://localhost:8743**
 
 Mit „↻ Neu einlesen" oben rechts wird der Ordner erneut gescannt (z. B. nach
 neuen Downloads). Suche, Sortierung und Filter (nur 3MF / nur STL) helfen bei
-größeren Sammlungen.
+größeren Sammlungen. Beenden mit `Strg+C` im PowerShell-Fenster.
 
-## Beenden
+### Eigene .exe bauen
 
-Im PowerShell-Fenster `Strg+C` drücken.
+Die Releases-Seite enthält bereits eine fertig gebaute `.exe` (automatisch
+erzeugt von GitHub Actions bei jedem neuen Tag). Wer sie trotzdem selbst
+bauen möchte, z. B. nach eigenen Code-Änderungen:
 
-## Als eigenständiges Programm (.exe)
+1. `build_exe.bat` doppelklicken (baut `dist\3D-Druck-Sammlung.exe`).
 
-Statt `python app.py` gibt es auch eine Variante als richtiges
-Windows-Programm mit eigenem Fenster (kein Browser-Tab, kein sichtbares
-Python nötig):
-
-1. `build_exe.bat` doppelklicken (baut einmalig `dist\3D-Druck-Sammlung.exe`).
-2. Diese `.exe` an einen beliebigen Ort verschieben und starten.
-
-Das Programm prüft beim Start automatisch, ob eine neuere Version verfügbar
-ist (siehe Menü → "Nach Updates suchen"). Die einmalige Einrichtung dieses
-Update-Systems ist in **`UPDATE_SETUP.md`** beschrieben.
+Details zum Auto-Update-Mechanismus stehen in **`UPDATE_SETUP.md`**.
