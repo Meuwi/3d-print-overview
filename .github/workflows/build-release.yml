@@ -1,10 +1,14 @@
-# Baut die Windows-.exe automatisch bei GitHub selbst (auf einem
+# Baut die Windows-Setup.exe automatisch bei GitHub selbst (auf einem
 # Windows-Rechner in der Cloud) und veroeffentlicht sie als Release, sobald
 # ein Versions-Tag (z.B. "v1.1.0") hochgeladen wird. So muss niemand selbst
 # einen Windows-PC zum Bauen benutzen - siehe UPDATE_SETUP.md fuer die
 # Schritt-fuer-Schritt-Anleitung, wie ein neues Update veroeffentlicht wird.
+#
+# Es wird bewusst NUR die fertige Setup.exe veroeffentlicht (nicht zusaetzlich
+# die portable Einzeldatei-.exe) - Nutzer sollen ausschliesslich ueber den
+# Installer installieren.
 
-name: Windows-.exe bauen und veroeffentlichen
+name: Windows-Setup.exe bauen und veroeffentlichen
 
 on:
   push:
@@ -32,10 +36,17 @@ jobs:
       - name: .exe bauen
         run: python -m PyInstaller --noconfirm app.spec
 
+      - name: Inno Setup installieren
+        run: choco install innosetup -y --no-progress
+
+      - name: Setup.exe bauen
+        run: '& "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" installer.iss'
+        shell: pwsh
+
       - name: Release veroeffentlichen
         uses: softprops/action-gh-release@v2
         with:
-          files: dist/3D-Druck-Sammlung.exe
+          files: installer_output/3D-Druck-Sammlung-Setup.exe
           generate_release_notes: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
