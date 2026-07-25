@@ -70,7 +70,7 @@ PORT = 8743
 # Versionsnummer dieser App - wird im Menue angezeigt und mit der neuesten
 # GitHub-Release-Version verglichen (siehe check_for_update()). Bei jeder
 # veroeffentlichten Aktualisierung hier erhoehen.
-APP_VERSION = "1.0.3"
+APP_VERSION = "1.0.12"
 
 # GitHub-Repository, in dem die Updates (als Releases mit angehaengter .exe)
 # veroeffentlicht werden, im Format "benutzername/repo-name". Solange hier
@@ -2915,19 +2915,33 @@ class WebviewAPI:
 
 
 def main():
-    global LIBRARY
+    global LIBRARY, PORT
+    # --test: fuer Testlaeufe waehrend der Entwicklung (siehe test_local.bat).
+    # Nutzt einen anderen Port als die "echte" .exe (8743), damit ein
+    # Testlauf niemals mit einer bereits laufenden Alltagsinstanz kollidiert
+    # - beide koennen dann parallel offen sein, ohne sich zu stoeren.
+    test_mode = "--test" in sys.argv
+    argv_source = next((a for a in sys.argv[1:] if a != "--test"), None)
+    if test_mode:
+        PORT = 8799
+
     LIBRARY = LibraryConfig(LIBRARY_CONFIG_FILE)
     sources = LIBRARY.sources()
-    if len(sys.argv) > 1 and sources:
+    if argv_source and sources:
         # Kommandozeilenargument ueberschreibt (nur fuer diesen Lauf, nicht
         # persistiert) den Pfad der ersten Quelle - praktisch zum Testen.
         sources[0] = dict(sources[0])
-        sources[0]["path"] = os.path.abspath(os.path.expanduser(sys.argv[1]))
+        sources[0]["path"] = os.path.abspath(os.path.expanduser(argv_source))
 
     Handler.scanners = {s["id"]: Scanner(s["path"]) for s in sources}
-    Handler.active_id = sources[0]["id"] if sources else None
-    if Handler.active_id:
-        Handler.scanners[Handler.active_id].start_background_scan()
+    # Startet immer mit "Alle" (statt der ersten Bibliothek) als aktiver
+    # Quelle - das entspricht dem Reiter ganz links in der Sidebar. Dafuer
+    # gleich alle Scanner anstossen (genau wie /api/switch-source es fuer
+    # ALL_ID tut), damit die kombinierte Ansicht nicht erst nach einem Klick
+    # auf "Alle" zu scannen beginnt.
+    Handler.active_id = ALL_ID if sources else None
+    for scanner in Handler.scanners.values():
+        scanner.start_background_scan()
     Handler.favorites = FavoritesStore(FAVORITES_FILE)
     Handler.notes = NotesStore(NOTES_FILE)
     Handler.trash = TrashStore(TRASH_FILE)

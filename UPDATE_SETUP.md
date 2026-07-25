@@ -73,7 +73,8 @@ eingerichtet, nie wieder manuell nötig).
 4. "Publish release" klicken.
 
 Nach 1-2 Minuten (GitHub baut im Hintergrund) erscheint automatisch die
-Datei `3D-Druck-Sammlung.exe` am Release angehängt - fertig zum Download.
+Datei `3D-Druck-Sammlung-Setup.exe` am Release angehängt - fertig zum
+Download und zur Installation per Doppelklick.
 
 ## Wie künftige Updates funktionieren
 
